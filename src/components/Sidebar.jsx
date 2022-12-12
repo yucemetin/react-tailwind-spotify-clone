@@ -6,10 +6,25 @@ import iconHeart from "../img/icons/heart.svg"
 import iconSave from "../img/icons/save.svg"
 import PlayList from './Sidebar/PlayList'
 import DownloadApp from './Sidebar/DownloadApp'
+import { useEffect, useRef } from "react"
+import gsap from "gsap"
 
 export default function Sidebar() {
+  const timeline = gsap.timeline({
+    repeat: false,
+    defaults: { duration: 1, ease: "easeInOut" }
+  })
+
+  const r1 = useRef()
+
+  useEffect(() => {
+
+    timeline.from(r1.current, { x: "-100%", }).to(r1.current, { x: "0%" })
+
+  }, [])
+  
   return (
-    <aside className='w-60 pt-6 flex flex-col bg-black'>
+    <aside className='w-60 pt-6 flex flex-col bg-black' ref={r1}>
       <div className='mb-7 px-6'>
         <a href="/" >
           <img src={logo} alt="side logo" className='h-10' />

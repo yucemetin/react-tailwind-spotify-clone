@@ -14,7 +14,7 @@ export default function Footer() {
     
         timeline.from(r2.current, { y: "100%", }).to(r2.current, { y: "0%" })
     
-      }, [])
+      })
 
     return (
         <div className='h-24 bg-footer border-t border-white border-opacity-5' ref={r2}>

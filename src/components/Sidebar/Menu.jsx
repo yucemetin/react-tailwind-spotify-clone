@@ -40,7 +40,7 @@ export default function Menu() {
                     <NavLink className={({ isActive }) =>
                         isActive ? activeClassName : unActiveClassName
                     }
-                        to="/collection"
+                        to="/collection/playlist"
                     >
                         <span>
                             <img src={logoCollection} alt="" />

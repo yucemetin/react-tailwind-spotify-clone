@@ -21,10 +21,10 @@ export default function Sidebar() {
 
     timeline.from(r1.current, { x: "-100%", }).to(r1.current, { x: "0%" })
 
-  }, [])
+  })
   
   return (
-    <aside className='w-60 pt-6 flex flex-col bg-black' ref={r1}>
+    <aside className='w-60 pt-6 flex flex-col bg-black flex-shrink-0' ref={r1}>
       <div className='mb-7 px-6'>
         <a href="/" >
           <img src={logo} alt="side logo" className='h-10' />

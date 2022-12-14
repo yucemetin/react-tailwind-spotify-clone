@@ -6,25 +6,16 @@ import iconHeart from "../img/icons/heart.svg"
 import iconSave from "../img/icons/save.svg"
 import PlayList from './Sidebar/PlayList'
 import DownloadApp from './Sidebar/DownloadApp'
-import { useEffect, useRef } from "react"
-import gsap from "gsap"
+import { useSelector } from "react-redux"
+import SidebarCover from './Sidebar/SidebarCover'
 
 export default function Sidebar() {
-  const timeline = gsap.timeline({
-    repeat: false,
-    defaults: { duration: 1, ease: "easeInOut" }
-  })
 
-  const r1 = useRef()
 
-  useEffect(() => {
+  const { sidebar } = useSelector(state => state.player)
 
-    timeline.from(r1.current, { x: "-100%", }).to(r1.current, { x: "0%" })
-
-  })
-  
   return (
-    <aside className='w-60 pt-6 flex flex-col bg-black flex-shrink-0' ref={r1}>
+    <aside className='w-60 pt-6 flex flex-col bg-black flex-shrink-0'>
       <div className='mb-7 px-6'>
         <a href="/" >
           <img src={logo} alt="side logo" className='h-10' />
@@ -57,8 +48,9 @@ export default function Sidebar() {
 
       </nav>
 
-      <PlayList/>
-      <DownloadApp/>
+      <PlayList />
+      <DownloadApp />
+      {sidebar && <SidebarCover/>}
     </aside>
   )
 }

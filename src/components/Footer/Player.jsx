@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import iconMix from "../../img/icons/playerMix.svg"
 import iconPrev from "../../img/icons/playerPrev.svg"
 import iconPlay from "../../img/icons/play.svg"
@@ -12,16 +12,36 @@ import iconVolumeNormal from "../../img/icons/volumeNormal.svg"
 import iconVolumeMute from "../../img/icons/volumeMute.svg"
 import iconVolumeLow from "../../img/icons/volumeLow.svg"
 import iconFullScreen from "../../img/icons/fullScreen.svg"
+import iconScreen from "../../img/icons/screenInScreen.svg"
+import iconPlayerHeart from "../../img/icons/playerHeart.svg"
+import iconUpperArrow from "../../img/icons/upperArrow.svg"
 import { useAudio } from "react-use"
 import { secondsToMinute } from "../../utils"
 import CustomRange from 'components/CustomRange'
-
+import { useDispatch, useSelector } from "react-redux"
+import { setControls, setSidebar, setPlaying } from 'stores/player'
 
 export default function Player() {
 
+    const dispatch = useDispatch()
+    const { current, sidebar } = useSelector(state => state.player)
+
     const [audio, state, controls] = useAudio({
-        src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+        src: current?.src
     });
+
+    useEffect(() => {
+        controls.play()
+        dispatch(setPlaying(true))
+    }, [current])
+
+    useEffect(()=> {
+        dispatch(setPlaying(state.playing))
+    },[state.playing])
+
+    useEffect(() => {
+        dispatch(setControls(controls))
+    }, [])
 
     const volumeIcon = useMemo(() => {
         if (state.volume === 0 || state.muted) {
@@ -45,10 +65,34 @@ export default function Player() {
 
     return (
         <div className='flex justify-between items-center h-full px-4'>
-            <div className='min-w-[11.25rem] w-[30%]'>
-                sol
+            <div className='min-w-[11.25rem] w-[30%] '>
+                {current && (
+                    <div className='flex items-center '>
+                        <div className='flex items-center mr-3'>
+                            {!sidebar && (
+                                <div className='w-14 h-14 mr-3 flex-shrink-0 relative group'>
+                                    <img src={current.image} alt="" />
+                                    <button onClick={() => dispatch(setSidebar(true))} className='w-6 h-6 bg-black bg-opacity-80 flex items-center justify-center rounded-full absolute top-1 right-1 group-hover:opacity-100 opacity-0 hover:scale-[1.06]'>
+                                        <img src={iconUpperArrow} alt="" />
+                                    </button>
+                                </div>
+                            )}
+                            <div>
+                                <h6 className='text-sm line-clamp-1'>{current.title}</h6>
+                                <p className='text-[0.688rem] text-link'>{current.artist}</p>
+                            </div>
+                        </div>
+                        <button className='w-8 h-8 flex items-center justify-center opacity-70 hover:opacity-100'>
+                            <img src={iconPlayerHeart} alt="" />
+                        </button>
+                        <button className='w-8 h-8 flex items-center justify-center opacity-70 hover:opacity-100'>
+                            <img src={iconScreen} alt="" />
+                        </button>
+                    </div>
+
+                )}
             </div>
-            <div className='flex flex-col max-w-[45.125rem] w-[40%] items-center'>
+            <div className='flex flex-col max-w-[45.125rem] w-[40%] items-center px-4'>
                 <div className='flex items-center gap-x-2'>
                     <button className='w-8 h-8 flex items-center justify-center opacity-70 hover:opacity-100'>
                         <img src={iconMix} alt="" />

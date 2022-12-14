@@ -29,7 +29,7 @@ export default function Section({ title, more = false, items }) {
                   <img src={item.image} alt="" className='aspect-square mb-4 w-full rounded-full shadow-custom' />
                 )}
 
-                <button className='w-12 h-12 rounded-full bg-secondary absolute right-2 bottom-2 group-hover:opacity-100 opacity-0 flex transition-opacity items-center justify-center shadow-custom'>
+                <button className='w-12 h-12 rounded-full bg-secondary absolute right-2 bottom-2 group-hover:opacity-100 opacity-0 flex transition-opacity items-center justify-center shadow-custom hover:scale-[1.07]'>
                   <img src={iconSpoti} alt="" />
                 </button>
               </div>

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useEffect, useRef } from "react"
 import gsap from "gsap"
+import Player from './Footer/Player'
 
 export default function Footer() {
     const timeline = gsap.timeline({
@@ -18,7 +19,7 @@ export default function Footer() {
 
     return (
         <div className='h-24 bg-footer border-t border-white border-opacity-5' ref={r2}>
-            Footer
+            <Player/>
         </div>
     )
 }

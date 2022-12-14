@@ -33,14 +33,20 @@ export default function Player() {
     useEffect(() => {
         controls.play()
         dispatch(setPlaying(true))
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [current])
 
-    useEffect(()=> {
+    useEffect(() => {
         dispatch(setPlaying(state.playing))
-    },[state.playing])
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [state.playing])
 
     useEffect(() => {
         dispatch(setControls(controls))
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const volumeIcon = useMemo(() => {

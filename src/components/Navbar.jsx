@@ -23,7 +23,7 @@ export default function Navbar() {
 
   })
   return (
-    <nav ref={r1} className="h-[3.75rem] flex items-center justify-between px-8 top-0 w-full z-50">
+    <nav ref={r1} className="h-[3.75rem] bg-backdrop flex items-center justify-between pl-8 pr-[272px] top-0 w-full z-50 fixed">
       <Navigation/>
       <Auth/>
     </nav>

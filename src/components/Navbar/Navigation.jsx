@@ -31,7 +31,7 @@ export default function Navigation() {
             </button>
             {isSearch && (
                 <div className='items-center h-10 w-[364px] relative'>
-                    <input value={inputval} onChange={inputHandle} type="text" className='h-10 w-[364px] bg-white rounded-3xl px-12 placeholder:text-black placeholder:opacity-60 outline-none text-black text-sm' placeholder='Ne dinlemek istiyorsun?' />
+                    <input autoFocus={true} value={inputval} onChange={inputHandle} type="text" className='h-10 w-[364px] bg-white rounded-3xl px-12 placeholder:text-black placeholder:opacity-60 outline-none text-black text-sm' placeholder='Ne dinlemek istiyorsun?' />
                     {inputval !== "" && (
                         <button onClick={() => setInputval("")} className='absolute top-2 right-3'>
                             <img src={iconX} alt="" />

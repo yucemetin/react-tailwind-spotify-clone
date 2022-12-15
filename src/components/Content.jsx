@@ -29,7 +29,7 @@ export default function Content() {
     return (
         <main className='flex-auto z-0 overflow-auto'>
             <Navbar />
-            <div ref={r1} className="px-8 py-5 mt-12">
+            <div ref={r1} className="px-8 py-5 mt-20">
                 <Routes>
                     <Route exact path='/' element={<Home />} />
                     <Route path='/search' element={<Search />} />

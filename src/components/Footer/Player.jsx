@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import iconMix from "../../img/icons/playerMix.svg"
 import iconPrev from "../../img/icons/playerPrev.svg"
 import iconPlay from "../../img/icons/play.svg"
@@ -15,16 +15,22 @@ import iconFullScreen from "../../img/icons/fullScreen.svg"
 import iconScreen from "../../img/icons/screenInScreen.svg"
 import iconPlayerHeart from "../../img/icons/playerHeart.svg"
 import iconUpperArrow from "../../img/icons/upperArrow.svg"
-import { useAudio } from "react-use"
+import { useAudio, useFullscreen, useToggle } from "react-use"
 import { secondsToMinute } from "../../utils"
 import CustomRange from 'components/CustomRange'
 import { useDispatch, useSelector } from "react-redux"
 import { setControls, setSidebar, setPlaying } from 'stores/player'
+import FullScreenPlayer from 'components/FullScreenPlayer'
 
 export default function Player() {
 
+    const fsref = useRef()
+    const [show, toggle] = useToggle(false)
+
     const dispatch = useDispatch()
     const { current, sidebar } = useSelector(state => state.player)
+    
+    const isFullScreen = useFullscreen(fsref, show, { onClose: () => toggle(false) })
 
     const [audio, state, controls] = useAudio({
         src: current?.src
@@ -32,7 +38,6 @@ export default function Player() {
 
     useEffect(() => {
         controls.play()
-        dispatch(setPlaying(true))
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [current])
@@ -156,9 +161,18 @@ export default function Player() {
                         }}
                     />
                 </div>
-                <button className='w-8 h-8 flex items-center justify-center opacity-70 hover:opacity-100'>
+                <button onClick={toggle} className='w-8 h-8 flex items-center justify-center opacity-70 hover:opacity-100'>
                     <img src={iconFullScreen} alt="" />
                 </button>
+            </div>
+            <div ref={fsref}>
+                {isFullScreen && (
+                    <FullScreenPlayer
+                        toggle={toggle}
+                        state={state}
+                        controls={controls}
+                    />
+                )}
             </div>
         </div>
     )
